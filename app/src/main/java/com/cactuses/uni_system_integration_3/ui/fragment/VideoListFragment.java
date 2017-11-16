@@ -1,5 +1,6 @@
 package com.cactuses.uni_system_integration_3.ui.fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 
 import com.cactuses.uni_system_integration_3.App;
+import com.cactuses.uni_system_integration_3.BuildConfig;
 import com.cactuses.uni_system_integration_3.R;
 import com.cactuses.uni_system_integration_3.model.Video;
 import com.cactuses.uni_system_integration_3.model.Wrapper;
