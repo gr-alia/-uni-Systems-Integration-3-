@@ -23,4 +23,11 @@ public final class InputValidator {
         }
         return true;
     }
+	public static boolean isLengthValid(String username, String password) {
+        if (username.length() < 3 || password.length() < 4 ) {
+            errResource = R.string.length_err;
+            return false;
+        }
+        return true;
+    }
 }

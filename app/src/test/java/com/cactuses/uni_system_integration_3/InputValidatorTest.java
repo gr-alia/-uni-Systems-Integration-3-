@@ -25,5 +25,17 @@ public class InputValidatorTest {
     public void loginInput_isFilled_4() throws Exception {
         assertThat(InputValidator.isFilledInput("", "qwerty"), is(false));
     }
+	 @Test
+    public void loginInput_isLengthValid_1() throws Exception {
+        assertThat(InputValidator.isLengthValid("1", "123456"), is(false));
+    }
+    @Test
+    public void loginInput_isLengthValid_2() throws Exception {
+        assertThat(InputValidator.isLengthValid("1234", "12"), is(false));
+    }
+    @Test
+    public void loginInput_isLengthValid_3() throws Exception {
+        assertThat(InputValidator.isLengthValid("abc", "pass"), is(true));
+    }
 
 }
