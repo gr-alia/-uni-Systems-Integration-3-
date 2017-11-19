@@ -12,4 +12,8 @@
 
     <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>
+
+    <!--Login input errors-->
+    <string name="empty_err">Username or password is empty</string>
+
 </resources>

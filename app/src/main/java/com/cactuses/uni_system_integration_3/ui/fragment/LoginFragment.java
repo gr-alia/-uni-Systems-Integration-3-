@@ -15,6 +15,7 @@ import com.cactuses.uni_system_integration_3.R;
 import com.cactuses.uni_system_integration_3.model.AuthWrapper;
 import com.cactuses.uni_system_integration_3.network.RetrofitService;
 import com.cactuses.uni_system_integration_3.network.VidmeAPI;
+import com.cactuses.uni_system_integration_3.utils.InputValidator;
 
 
 /**
@@ -25,9 +26,6 @@ public class LoginFragment extends BaseFragment {
     private EditText mEditUsername;
     private EditText mEditPassword;
     private Button mLogin;
-
-    private static String username;
-    private static String password;
 
     private AuthWrapper mAuth;
     private SharedPreferences mPrefs;
@@ -55,12 +53,13 @@ public class LoginFragment extends BaseFragment {
         mLogin = (Button) view.findViewById(R.id.login);
 
         mLogin.setOnClickListener(v -> {
-            username = mEditUsername.getText().toString();
-            password = mEditPassword.getText().toString();
-            if (username.trim().equals("") || password.trim().equals("") ) {
-                Toast.makeText(getActivity(), "Username or password is empty", Toast.LENGTH_LONG).show();
-                return;
-            }
+            String username = mEditUsername.getText().toString();
+            String password = mEditPassword.getText().toString();
+           if (!InputValidator.isValid(username, password)){
+              int resId = InputValidator.errResource;
+               Toast.makeText(getActivity(), resId , Toast.LENGTH_LONG).show();
+               return;
+           }
             VidmeAPI api = RetrofitService.getInstance().getApi();
 
             subscribe(api.createAuth(username, password), authWrapper -> {
@@ -82,4 +81,5 @@ public class LoginFragment extends BaseFragment {
         });
         return view;
     }
+
 }
