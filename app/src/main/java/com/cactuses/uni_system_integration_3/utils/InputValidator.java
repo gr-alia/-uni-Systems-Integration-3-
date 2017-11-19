@@ -30,4 +30,11 @@ public final class InputValidator {
         }
         return true;
     }
+public static boolean isUsernameValid(String username) {
+        if ( username.contains("@") ) {
+            errResource = R.string.username_err;
+            return false;
+        }
+        return true;
+    }
 }

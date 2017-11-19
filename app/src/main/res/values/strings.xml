@@ -16,5 +16,5 @@
     <!--Login input errors-->
     <string name="empty_err">Username or password is empty</string>
 	<string name="length_err">Username or password is too short</string>
-
+<string name="username_err">Please input your username, NOT email</string>
 </resources>

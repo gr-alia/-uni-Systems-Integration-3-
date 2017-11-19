@@ -37,5 +37,8 @@ public class InputValidatorTest {
     public void loginInput_isLengthValid_3() throws Exception {
         assertThat(InputValidator.isLengthValid("abc", "pass"), is(true));
     }
-
+    @Test
+    public void loginInput_isUsernameValid() throws Exception {
+        assertThat(InputValidator.isUsernameValid("example@mail.com"), is(false));
+    }
 }
