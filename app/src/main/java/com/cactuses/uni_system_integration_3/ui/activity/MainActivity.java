@@ -13,6 +13,7 @@ import com.cactuses.uni_system_integration_3.App;
 import com.cactuses.uni_system_integration_3.BuildConfig;
 import com.cactuses.uni_system_integration_3.R;
 import com.cactuses.uni_system_integration_3.ui.adapter.TabsPagerAdapter;
+import com.cactuses.uni_system_integration_3.utils.PrefsKeyValueStorage;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -46,7 +47,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.action_exit).setVisible(mApp.isActiveSession());
+        PrefsKeyValueStorage prefsKeyValueStorage = new PrefsKeyValueStorage(this);
+        boolean visibility = true;
+        if (prefsKeyValueStorage.getToken() == null){
+            visibility = false;
+        }
+        menu.findItem(R.id.action_exit).setVisible(visibility);
         return super.onPrepareOptionsMenu(menu);
     }
 

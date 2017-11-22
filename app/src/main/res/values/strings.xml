@@ -2,9 +2,6 @@
     <string name="app_name">Watch Best</string>
     <string name="likes_number">%1$d likes</string>
 
-    <string name="pref_user_data">com.alia.watchbest.PREFERENCE_USER_DATA</string>
-    <string name="saved_token">com.alia.watchbest.SAVED_TOKEN</string>
-
     <string name="login">Log in</string>
 
     <string name="action_exit">Logout</string>
@@ -15,6 +12,6 @@
 
     <!--Login input errors-->
     <string name="empty_err">Username or password is empty</string>
-	<string name="length_err">Username or password is too short</string>
-<string name="username_err">Please input your username, NOT email</string>
+    <string name="length_err">Username or password is too short</string>
+    <string name="username_err">Please input your username, NOT email</string>
 </resources>

@@ -16,6 +16,7 @@ import com.cactuses.uni_system_integration_3.model.AuthWrapper;
 import com.cactuses.uni_system_integration_3.network.RetrofitService;
 import com.cactuses.uni_system_integration_3.network.VidmeAPI;
 import com.cactuses.uni_system_integration_3.utils.InputValidator;
+import com.cactuses.uni_system_integration_3.utils.PrefsKeyValueStorage;
 
 
 /**
@@ -55,26 +56,22 @@ public class LoginFragment extends BaseFragment {
         mLogin.setOnClickListener(v -> {
             String username = mEditUsername.getText().toString();
             String password = mEditPassword.getText().toString();
-           if (!InputValidator.isValid(username, password)){
-              int resId = InputValidator.errResource;
-               Toast.makeText(getActivity(), resId , Toast.LENGTH_LONG).show();
-               return;
-           }
+            if (!InputValidator.isValid(username, password)) {
+                int resId = InputValidator.errResource;
+                Toast.makeText(getActivity(), resId, Toast.LENGTH_LONG).show();
+                return;
+            }
             VidmeAPI api = RetrofitService.getInstance().getApi();
 
             subscribe(api.createAuth(username, password), authWrapper -> {
                 mAuth = authWrapper;
                 String token = mAuth.getAuth().getToken();
-                mPrefs = getActivity().getSharedPreferences(
-                        getString(R.string.pref_user_data), Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = mPrefs.edit();
-                editor.putString(getString(R.string.saved_token), token);
-                editor.commit();
-                App app =  (App) getActivity().getApplication();
-                app.setActiveSession(true);
 
-                FeedFragment feedFragment = (FeedFragment)getParentFragment();
-                feedFragment.replaceFragment();
+                PrefsKeyValueStorage prefsKeyValueStorage = new PrefsKeyValueStorage(getActivity());
+                prefsKeyValueStorage.saveToken(token);
+
+                FeedFragment feedFragment = (FeedFragment) getParentFragment();
+                feedFragment.replaceFragment(VideoListFragment.newInstance(2));
 
                 getActivity().invalidateOptionsMenu();
             });

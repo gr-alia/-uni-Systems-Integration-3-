@@ -10,14 +10,16 @@ import android.view.ViewGroup;
 
 import com.cactuses.uni_system_integration_3.App;
 import com.cactuses.uni_system_integration_3.R;
+import com.cactuses.uni_system_integration_3.utils.AuthHelper;
+import com.cactuses.uni_system_integration_3.utils.AuthView;
 
 
 /**
  * Created by Alyona on 02.10.2017.
  */
 /* Root Fragment for Feed page */
-public class FeedFragment extends Fragment {
-    private FragmentTransaction mTransaction;
+public class FeedFragment extends Fragment implements AuthView {
+    private AuthHelper mAuthHelper;
 
     public FeedFragment() {
 
@@ -27,23 +29,28 @@ public class FeedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
+        mAuthHelper = new AuthHelper(getActivity(), this);
 
-        replaceFragment();
+        mAuthHelper.tryLogIn();
 
         return view;
     }
 
-    public void replaceFragment() {
-        mTransaction = getChildFragmentManager()
+
+    public void replaceFragment(BaseFragment fragment) {
+        FragmentTransaction transaction = getChildFragmentManager()
                 .beginTransaction();
-        App app = (App) getActivity().getApplication();
-        if (app.isActiveSession()) {
-            mTransaction.replace(R.id.root_container, VideoListFragment.newInstance(2));
-            mTransaction.commit();
-        } else {
-            mTransaction.replace(R.id.root_container, new LoginFragment());
-            mTransaction.commit();
-        }
+        transaction.replace(R.id.root_container, fragment);
+        transaction.commit();
     }
 
+    @Override
+    public void openNewsFeed() {
+        replaceFragment(VideoListFragment.newInstance(2));
+    }
+
+    @Override
+    public void showLoginForm() {
+        replaceFragment(new LoginFragment());
+    }
 }

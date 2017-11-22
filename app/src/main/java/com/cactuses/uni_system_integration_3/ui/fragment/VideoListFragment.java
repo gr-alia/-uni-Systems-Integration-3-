@@ -24,6 +24,7 @@ import com.cactuses.uni_system_integration_3.network.RetrofitService;
 import com.cactuses.uni_system_integration_3.network.VidmeAPI;
 import com.cactuses.uni_system_integration_3.ui.EndlessRecyclerOnScrollListener;
 import com.cactuses.uni_system_integration_3.ui.adapter.VideoAdapter;
+import com.cactuses.uni_system_integration_3.utils.PrefsKeyValueStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ public class VideoListFragment extends BaseFragment implements SwipeRefreshLayou
     private VidmeAPI apiInstance;
 
     private int pageNumber;
-    private SharedPreferences mPrefs;
+    private PrefsKeyValueStorage mPrefsKeyValueStorage;
 
     public VideoListFragment() {
 
@@ -74,8 +75,8 @@ public class VideoListFragment extends BaseFragment implements SwipeRefreshLayou
         Bundle args = getArguments();
         pageNumber = args.getInt(ARG_NUM);
 
-        mPrefs = getActivity().getSharedPreferences(
-                getString(R.string.pref_user_data), Context.MODE_PRIVATE);
+        mPrefsKeyValueStorage = new PrefsKeyValueStorage(getActivity());
+
     }
 
     @Override
@@ -125,7 +126,7 @@ public class VideoListFragment extends BaseFragment implements SwipeRefreshLayou
             case 1:
                 return apiInstance.getNew(offset, 10);
             case 2:
-                String accessToken = mPrefs.getString(getString(R.string.saved_token), null);
+                String accessToken = mPrefsKeyValueStorage.getToken();
                 return apiInstance.getFeed(accessToken, offset, 10);
             default:
                 return null;
@@ -150,14 +151,15 @@ public class VideoListFragment extends BaseFragment implements SwipeRefreshLayou
     }
 
     private void logOut() {
-        subscribe(apiInstance.deleteAuth(mPrefs.getString(getString(R.string.saved_token), null)), authWrapper -> {
+        subscribe(apiInstance.deleteAuth(mPrefsKeyValueStorage.getToken()), authWrapper -> {
                     if (authWrapper.getStatus()) {
-                        mPrefs.edit().clear().commit();
-                        App app = (App) getActivity().getApplication();
-                        app.setActiveSession(false);
+
+                        PrefsKeyValueStorage prefsKeyValueStorage = new PrefsKeyValueStorage(getActivity());
+                        prefsKeyValueStorage.deleteToken();
+
                         if (getParentFragment() != null) {
                             FeedFragment feedFragment = (FeedFragment) getParentFragment();
-                            feedFragment.replaceFragment();
+                            feedFragment.replaceFragment(new LoginFragment());
                         }
                         getActivity().invalidateOptionsMenu();
                         Toast.makeText(getContext(), "Logout is success", Toast.LENGTH_SHORT).show();

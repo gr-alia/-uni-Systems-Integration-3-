@@ -11,28 +11,14 @@ import com.cactuses.uni_system_integration_3.network.RetrofitService;
  */
 
 public class App extends Application {
-    private boolean isActiveSession;
-    private SharedPreferences mPrefs;
-
-    public boolean isActiveSession() {
-        return isActiveSession;
-    }
-
-    public void setActiveSession(boolean activeSession) {
-        isActiveSession = activeSession;
-    }
 
     @Override
     public void onCreate() {
         super.onCreate();
         RetrofitService.initInstance();
-        initSession();
+
     }
 
-    private void initSession() {
-        mPrefs = getSharedPreferences(getString(R.string.pref_user_data), MODE_PRIVATE);
-        boolean isContains = mPrefs.contains(getString(R.string.saved_token));
-        setActiveSession(isContains);
-    }
+
 
 }
