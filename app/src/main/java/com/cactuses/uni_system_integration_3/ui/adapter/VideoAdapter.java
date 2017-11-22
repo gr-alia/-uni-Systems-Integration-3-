@@ -90,6 +90,10 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
                 }
             });
         }
+		
+		public String getSomeString(){
+			return mContext.getString(R.string.app_name);
+		}
 
     }
 }

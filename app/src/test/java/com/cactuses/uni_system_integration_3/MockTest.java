@@ -30,6 +30,8 @@ public class MockTest {
     private FragmentActivity mMockActivity;
     private AuthView mMockAuthView;
     private AuthHelper mAuthHelper;
+	
+	private static final String FAKE_STRING = "FAKESTR";	
 
     @Before
     public void setUp() throws Exception {
@@ -92,6 +94,26 @@ public class MockTest {
         app.isAuthorized("");
         verify(mockView).openLoginForm();
         Mockito.verifyNoMoreInteractions(mockView);
+
+    }	
+
+
+    @Test
+    public void readStringFromContext() {
+        Context mockContext = Mockito.mock(Context.class);
+        when(mockContext.getString(R.string.app_name)).thenReturn(FAKE_STRING);
+        VideoAdapter va = new VideoAdapter(mockContext, new ArrayList<>());
+        String result = va.getSomeString();
+        assertThat(result, is(FAKE_STRING));
+
+    }
+
+    @Test
+    public void testExactArguments() {
+        Context mockContext = Mockito.mock(Context.class);
+        VideoAdapter va = new VideoAdapter(mockContext, new ArrayList<>());
+        va.getSomeString();
+        verify(mockContext).getString(R.string.app_name);
 
     }
 
