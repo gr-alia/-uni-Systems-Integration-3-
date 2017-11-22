@@ -45,15 +45,7 @@ public class MockTest {
     public void testConstructor() throws Exception {
         assertNotNull(mAuthHelper);
     }
-
-    @Test
-    public void testLogin() throws Exception {
-        //This one doesn't work because of Android SDK
-        PrefsKeyValueStorage prefsKeyValueStorage = new PrefsKeyValueStorage(mMockActivity);
-        prefsKeyValueStorage.saveToken("");
-        mAuthHelper.tryLogIn();
-        Mockito.verify(mMockAuthView).openNewsFeed();
-    }
+    
   @Test
     public void testServerRequestSuccess() {
         FakeServer mockServer = Mockito.mock(FakeServer.class);
