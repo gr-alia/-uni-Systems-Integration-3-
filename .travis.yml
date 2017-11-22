@@ -1,5 +1,6 @@
 language: android
 jdk: oraclejdk8
+sudo: false
 android:
   components:
     # use the latest revision of Android SDK Tools
@@ -12,7 +13,15 @@ android:
      - android-26
      - extra-google-m2repository
      - extra-android-m2repository # for design library
+     - sys-img-armeabi-v7a-android-22
+     - sys-img-armeabi-v7a-android-19
 before_install:
      - chmod +x gradlew
+     # Emulator Management: Create, Start and Wait
+before_script:
+       - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+       - emulator -avd test -no-audio -no-window &
+       - android-wait-for-emulator
+       - adb shell input keyevent 82 &
 
 
