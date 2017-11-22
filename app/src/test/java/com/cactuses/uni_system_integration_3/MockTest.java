@@ -71,7 +71,29 @@ public class MockTest {
         app.launch();
         verify(mockView).showError();
     }
+    @Test
+    public void testUserAuthorizedTrue() {
+        FakeServer mockServer = Mockito.mock(FakeServer.class);
+        ScreenView mockView = Mockito.mock(ScreenView.class);
+        ClientApp app = new ClientApp(mockServer, mockView);
 
+        app.isAuthorized("sd456qwertttt9876fghj");
+        verify(mockView).showLoading();
+        verify(mockView, times(0)).openLoginForm();
+
+
+    }
+    @Test
+    public void testUserAuthorizedFalse() {
+        FakeServer mockServer = Mockito.mock(FakeServer.class);
+        ScreenView mockView = Mockito.mock(ScreenView.class);
+        ClientApp app = new ClientApp(mockServer, mockView);
+
+        app.isAuthorized("");
+        verify(mockView).openLoginForm();
+        Mockito.verifyNoMoreInteractions(mockView);
+
+    }
 
 
 }
