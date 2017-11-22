@@ -53,6 +53,9 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
         return mVideos.size();
     }
 
+    public String getSomeString(){
+        return mContext.getString(R.string.app_name);
+    }
 
     class VideoHolder extends RecyclerView.ViewHolder {
         private ImageView mThumbnailView;
@@ -90,10 +93,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoHolder>
                 }
             });
         }
-		
-		public String getSomeString(){
-			return mContext.getString(R.string.app_name);
-		}
+
 
     }
 }
