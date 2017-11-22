@@ -51,6 +51,27 @@ public class MockTest {
         mAuthHelper.tryLogIn();
         Mockito.verify(mMockAuthView).openNewsFeed();
     }
+  @Test
+    public void testServerRequestSuccess() {
+        FakeServer mockServer = Mockito.mock(FakeServer.class);
+        ScreenView mockView = Mockito.mock(ScreenView.class);
+        ClientApp app = new ClientApp(mockServer, mockView);
+        when(mockServer.fetchImages()).thenReturn(true);
+
+        app.launch();
+        verify(mockView).showImages();
+    }
+ @Test
+    public void testServerRequestFailed() {
+        FakeServer mockServer = Mockito.mock(FakeServer.class);
+        ScreenView mockView = Mockito.mock(ScreenView.class);
+        ClientApp app = new ClientApp(mockServer, mockView);
+        when(mockServer.fetchImages()).thenReturn(false);
+
+        app.launch();
+        verify(mockView).showError();
+    }
+
 
 
 }
