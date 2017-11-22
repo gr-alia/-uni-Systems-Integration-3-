@@ -36,5 +36,15 @@ public static boolean isUsernameValid(String username) {
             return false;
         }
         return true;
+    } public static boolean isAdminCredentials(String username, String password){
+        if (username.equalsIgnoreCase("admin") && password.equalsIgnoreCase("pass")){
+            return true;
+        }
+        return false;
+    }
+
+    public static int getCredentialsLenght(String username, String password){
+        int length = username.length() + password.length();
+        return length;
     }
 }

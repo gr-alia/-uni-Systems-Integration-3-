@@ -41,4 +41,13 @@ public class InputValidatorTest {
     public void loginInput_isUsernameValid() throws Exception {
         assertThat(InputValidator.isUsernameValid("example@mail.com"), is(false));
     }
+ @Test
+    public void loginInput_isAdmin() throws Exception{
+        assertTrue(InputValidator.isAdminCredentials("admin", "pass"));
+    }
+
+    @Test
+    public void loginInput_testCredentialsLenght() throws Exception{
+        assertEquals(InputValidator.getCredentialsLenght("name", "12345678"), 12);
+    }
 }
