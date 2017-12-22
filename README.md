@@ -5,7 +5,7 @@ After repository cloning open Android Studio and press 'Open'. Chose the reposit
 
 # Using Docker
 
-1. Install Docker from [here] (https://docs.docker.com/engine/installation/)
+1. Install Docker from https://docs.docker.com/engine/installation/
 2. Run `docker build -t <image name> -f ./scripts/Dockerfile .` from your root project directory
 3. Run `docker run -it --rm <image name> `
 
