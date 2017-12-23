@@ -1,0 +1,16 @@
+# User-specific stuff:
+.idea/
+*.iml
+
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+# Gradle:
+.gradle
+.idea/gradle.xml
+.idea/libraries
+# Local configuration file (sdk path, etc)
+local.properties
+build/

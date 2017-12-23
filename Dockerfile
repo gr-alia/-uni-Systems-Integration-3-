@@ -22,5 +22,8 @@ RUN $ANDROID_HOME/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS_VERSIO
 # Gradle -  Gradle Wrapper is used,  no explicit gradle download to the image is needed
 
 # Setup the working folder
-RUN mkdir /application
-WORKDIR /application
+RUN mkdir /app
+WORKDIR /app
+ADD . /app
+
+CMD ./gradlew assembleRelease > ./logs/gradlelogs.txt 2>&1
