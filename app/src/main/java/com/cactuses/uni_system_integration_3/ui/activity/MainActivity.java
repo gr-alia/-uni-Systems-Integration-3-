@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
         mApp = (App) getApplication();
-
+        setTitle("Integration Systems");
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         TabsPagerAdapter pagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(pagerAdapter);
